@@ -73,7 +73,23 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _createGidTable(BuildContext context, AsyncSnapshot snapshot){
+    return GridView.builder(
+      padding: EdgeInsets.all(10.0),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 10.0,
+        mainAxisSpacing: 10.0
+      ),
+      itemCount: snapshot.data["data"].lenght,
+      itemBuilder: (context, index){
+        return GestureDetector(
+          child:  Image.network(snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+          height: 300.0,
+            fit: BoxFit.cover,),
 
+        );
+      },
+    );
   }
 }
 
