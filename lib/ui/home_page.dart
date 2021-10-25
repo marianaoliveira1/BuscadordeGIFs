@@ -42,9 +42,38 @@ class HomePage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          Expanded(
+              child: FutureBuilder(
+                future: _getGif(),
+                builder: (context, snapshot){
+                  switch(snapshot.connectionState){
+                    case ConnectionState.waiting:
+                    case ConnectionState.none:
+                      return Container(
+                        width: 200.0,
+                        height: 200.0,
+                        alignment: Alignment.center,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          strokeWidth: 5.0,
+                        ),
+                      );
+                      default:
+                        if(snapshot.hasError)
+                          return Container();
+                        else
+                          return _createGidTable(context, snapshot);
+                  }
+                },
+              ),
+          ),
         ],
       ),
     );
+  }
+
+  Widget _createGidTable(BuildContext context, AsyncSnapshot snapshot){
+
   }
 }
 
