@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:buscadordegifs/ui/gifs_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -107,6 +109,14 @@ class _HomePageState extends State<HomePage> {
             child:  Image.network(snapshot.data["data"][index]["images"]["fixed_height"]["url"],
               height: 300.0,
               fit: BoxFit.cover,),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Gif(snapshot.data["data"][index]))
+              );
+            },
+            onLongPress: () {
+              Share.share(snapshot.data["data"][index]["images"]["fixed_height"]["url"]);
+            },
           );
         }
         else {
